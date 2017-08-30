@@ -3,6 +3,13 @@ const morgan = require('morgan')
 const basicAuth = require('express-basic-auth')
 const app = express()
 
+const data = [
+  {longUrl: 'http://feel5ny.me', id: '58DX37'}
+]
+// http://logcalhost:3000/58DX37
+// 302 응답
+// 
+
 app.use(basicAuth({
   users: { 'admin': 'admin' },
   challenge: true,
@@ -16,7 +23,7 @@ app.use('/static', express.static('public'));
 app.use(morgan('tiny'));
 
 app.get('/', (req, res) => {
-  res.render('index.ejs')
+  res.render('index.ejs',{data})
 })
 
 app.listen(3000, () => {
