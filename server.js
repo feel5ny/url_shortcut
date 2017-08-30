@@ -1,21 +1,21 @@
 const express = require('express')
 const morgan = require('morgan')
 const basicAuth = require('express-basic-auth')
+const randomString = require('randomstring')
+
 const app = express()
 
 const data = [
-  {longUrl: 'http://feel5ny.me', id: '58DX37'}
+  {longUrl: 'http://feel5ny.me', id: randomString.generate(7)}
 ]
 // http://logcalhost:3000/58DX37
 // 302 응답
-// 
 
 app.use(basicAuth({
   users: { 'admin': 'admin' },
   challenge: true,
   realm: 'Imb4T3st4pp'
 }))
-
 
 
 app.set('view engine', 'ejs')
