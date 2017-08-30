@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const basicAuth = require('express-basic-auth')
 const randomString = require('randomstring')
+const bodyParser = require('body-parser')
 
 const app = express()
 
@@ -13,7 +14,7 @@ const data = [
 ]
 // http://logcalhost:3000/58DX37
 // 302 응답
-
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(basicAuth({
   users: { 'admin': 'admin' },
   challenge: true,
@@ -38,6 +39,21 @@ app.get('/:id',(req, res) => {
 
 app.get('/', (req, res) => {
   res.render('index.ejs',{data})
+})
+
+app.post('/', (req,res)=> {
+  const longUrl = req.body.longUrl
+  let id
+  while(true){
+    const candidate = randomString.generate(6)
+    const matched = data.find(item => item.id === candidate)
+    if (!matched){
+      id = candidate
+      break
+    }
+  }
+  data.push({id, longUrl})
+  res.redirect('/')
 })
 
 app.listen(3000, () => {
