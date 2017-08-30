@@ -6,7 +6,10 @@ const randomString = require('randomstring')
 const app = express()
 
 const data = [
-  {longUrl: 'http://feel5ny.me', id: randomString.generate(7)}
+  {
+    longUrl: 'http://feel5ny.me', 
+    id: randomString.generate(6)
+  }
 ]
 // http://logcalhost:3000/58DX37
 // 302 응답
